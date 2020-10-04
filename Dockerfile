@@ -1,11 +1,13 @@
-FROM ubuntu
+FROM alpine
 WORKDIR /
 
-# Update aptitude with new repo
-RUN apt-get update
+# Install packages
+RUN apk add --no-cache bash openssh-client git python3 py3-pip
 
-# Install software
-RUN apt-get install --no-install-recommends -y git python3 python3-pip
+# Add git host key
+RUN mkdir ~/.ssh
+RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
 
 COPY startup.sh /startup.sh
 
