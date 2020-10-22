@@ -7,15 +7,15 @@ if [ -f "$GIT_KEY" ] && [ -v GIT_REPO ]; then
     cp $GIT_KEY /deploy_temp.key
     chmod 600 /deploy_temp.key
     echo >> /deploy_temp.key
-    GIT_SSH_COMMAND='ssh -i /deploy_temp.key -o IdentitiesOnly=yes' git clone --quiet $GIT_REPO /app
+    GIT_SSH_COMMAND='ssh -i /deploy_temp.key -o IdentitiesOnly=yes' git clone --depth 1 --quiet $GIT_REPO /app
 
 elif [ -f /deploy.key ]; then
     echo "Using key: /deploy.key to clone repo: $GIT_REPO  ..."
-    GIT_SSH_COMMAND='ssh -i /deploy_temp.key -o IdentitiesOnly=yes' git clone --quiet $GIT_REPO /app
+    GIT_SSH_COMMAND='ssh -i /deploy_temp.key -o IdentitiesOnly=yes' git clone --depth 1 --quiet $GIT_REPO /app
 
 elif [ -v GIT_REPO ]; then
     echo "Cloning public repo..."
-    git clone --quiet $GIT_REPO
+    git clone --quiet --depth 1 $GIT_REPO
 
 fi
 
